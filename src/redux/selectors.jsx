@@ -24,6 +24,11 @@ const seats = state => state.seats;
 const departureCoaches = state => seats(state).coaches.departure;
 const arrivalCoaches = state => seats(state).coaches.arrival;
 
+export const totalSeats = createSelector(
+    [departureItems, arrivalItems],
+    (departureItems, arrivalItems) => [...departureItems, ...arrivalItems]
+)
+
 export const totalPagesSum = createSelector(
     [totalCount, limit],
     (total, limit) => Math.ceil(total / limit)

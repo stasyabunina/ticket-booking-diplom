@@ -6,6 +6,7 @@ import OrderPassenger from './OrderPassenger';
 import Ticket from '../Ticket';
 import { useEffect } from 'react';
 import { postOrder } from '../../redux/reducers/orderReducer/postOrder';
+import { resetOrder, resetPassengers, resetSeats } from '../../redux/actions/actionCreators';
 
 function Order({ item, paymentMethod, departurePassengers, arrivalPassengers }) {
     const dispatch = useDispatch();
@@ -27,12 +28,24 @@ function Order({ item, paymentMethod, departurePassengers, arrivalPassengers }) 
         dispatch(postOrder(orderData));
     }
 
+    const onTrainChange = () => {
+        dispatch(resetSeats());
+        dispatch(resetPassengers());
+        dispatch(resetOrder());
+        navigate(config.ticketsUrl);
+    }
+
+    const onPassengersChange = () => {
+        dispatch(resetOrder());
+        navigate(config.passengersUrl);
+    }
+
     return (
         <div className='order__details'>
             <div className='order__block'>
                 <h2 className='order__block-title'>Поезд</h2>
                 <Ticket item={item}>
-                    <Link className='secondary-btn order__item-btn' to={config.ticketsUrl}>Изменить</Link>
+                    <button type='button' className='secondary-btn order__item-btn' onClick={onTrainChange}>Изменить</button>
                 </Ticket>
             </div>
             <div className='order__block'>
@@ -50,7 +63,7 @@ function Order({ item, paymentMethod, departurePassengers, arrivalPassengers }) 
                         <p className='order__total'>
                             Всего <span className='order__total-price'>{departurePrice + arrivalPrice}</span><span className='order__total-price-symbol'> ₽</span>
                         </p>
-                        <Link className='secondary-btn order__item-btn' to={config.passengersUrl}>Изменить</Link>
+                        <button type='button' className='secondary-btn order__item-btn' onClick={onPassengersChange}>Изменить</button>
                     </div>
                 </div>
             </div>
@@ -61,7 +74,7 @@ function Order({ item, paymentMethod, departurePassengers, arrivalPassengers }) 
                         {paymentMethod === 'online' ? 'Онлайн' : 'Наличными'}
                     </div>
                     <div className='order__block-btn-wrapper'>
-                        <Link className='secondary-btn order__item-btn' to={config.paymentUrl}>Изменить</Link>
+                        <button type='button' className='secondary-btn order__item-btn' onClick={() => navigate(config.paymentUrl)}>Изменить</button>
                     </div>
                 </div>
             </div>

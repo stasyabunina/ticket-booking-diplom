@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { totalArrivalPrice, totalDeparturePrice } from '../../redux/selectors';
 
-function OrderSuccessDetails({orderId, resetStates}) {
+function OrderSuccessDetails({orderId}) {
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.order);
     const departurePrice = useSelector(totalDeparturePrice);
@@ -13,7 +13,6 @@ function OrderSuccessDetails({orderId, resetStates}) {
 
     const onClick = () => {
         navigate('/');
-        resetStates();
     }
 
     return (

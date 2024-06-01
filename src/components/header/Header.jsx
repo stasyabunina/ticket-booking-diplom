@@ -1,5 +1,5 @@
 import './Header.css';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 function Header() {
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ function Header() {
         <header className='header'>
             <div className='header__logo-wrapper'>
                 <div className='container'>
-                    <a href='/' className='header__logo'>Лого</a>
+                    <Link to='/' className='header__logo'>Лого</Link>
                 </div>
             </div>
             <nav className='header__nav'>

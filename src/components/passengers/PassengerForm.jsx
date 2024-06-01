@@ -267,6 +267,7 @@ function PassengerForm({ item, index, route, setIsSuccessShown, isSuccessShown }
             return;
         }
 
+        onCalendarChange(initialValue);
         setIsAdultTypeMenuOpened(prev => !prev);
     }
 
@@ -286,6 +287,25 @@ function PassengerForm({ item, index, route, setIsSuccessShown, isSuccessShown }
         setIsDocumentTypeMenuOpened(prev => !prev);
     }
 
+    const getMinDate = () => {
+        if (item.person_info.is_adult) {
+            const minAdultDate = new moment().subtract(100, 'years').toDate();
+            return minAdultDate;
+        } else {
+            const minChildDate = new moment().subtract(18, 'years').toDate();
+            return minChildDate;
+        }
+    };
+
+    const getMaxDate = () => {
+        if (item.person_info.is_adult) {
+            const maxAdultDate = new moment().subtract(18, 'years').toDate();
+            return maxAdultDate;
+        } else {
+            const maxChildDate = new moment().toDate();
+            return maxChildDate;
+        }
+    };
 
     return (
         <form onSubmit={onSubmit}>
@@ -330,7 +350,7 @@ function PassengerForm({ item, index, route, setIsSuccessShown, isSuccessShown }
                         <span className='label-text'>Дата рождения</span>
                         <span className={`passenger__birth-date${item.person_info.birthday !== '' ? ' passenger__birth-date--selected' : ''}${dateError ? ' passenger__birth-date--error' : ''}${isSuccessShown ? ' field--disabled' : ''}`} onClick={onCalendarShown}>{item.person_info.birthday === '' ? 'дд/мм/гг' : item.person_info.birthday}</span>
                         {!isCalendarShown ? '' : <CalendarWrapperComponent ref={calendar}>
-                            <Calendar onChange={onCalendarChange} value={calendarValue} onClickDay={() => setIsCalendarShown(false)} maxDate={initialValue} />
+                            <Calendar onChange={onCalendarChange} value={calendarValue} onClickDay={() => setIsCalendarShown(false)} minDate={getMinDate()} maxDate={getMaxDate()} />
                         </CalendarWrapperComponent>}
                     </label>
                 </div>

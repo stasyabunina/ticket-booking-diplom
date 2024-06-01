@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useRef } from 'react';
 import Aside from '../../components/Aside';
-import { availableSeatsTotal, randomSeat, randomSeatPrice, totalAdultPassengersAmount, totalChildPassengersAmount, totalOrderSeatsAmount } from '../../redux/selectors';
+import { availableSeatsTotal, randomSeat, randomSeatPrice, totalAdultPassengersAmount, totalChildPassengersAmount, totalOrderSeatsAmount, totalSeats } from '../../redux/selectors';
 import config from '../../app/config';
 import { addSeat } from '../../redux/actions/actionCreators';
 import Passenger from '../../components/passengers/Passenger';
@@ -13,6 +13,7 @@ function PassengersPage() {
     const section = useRef(null);
     const navigate = useNavigate();
     const { item } = useSelector((state) => state.seats);
+    const totalSeatsItems = useSelector(totalSeats);
     const departureSeats = useSelector((state) => state.passengers.departure.seats);
     const arrivalSeats = useSelector((state) => state.passengers.arrival.seats);
     const totalAdultPassengers = useSelector(totalAdultPassengersAmount);
@@ -85,7 +86,7 @@ function PassengersPage() {
                                 <path d='M7.98836 1.50727L7.98836 7.98839L1.50724 7.98839C0.904343 7.98839 0.452171 8.44056 0.452171 9.04346C0.452171 9.64635 0.904343 10.0985 1.50724 10.0985L7.98836 10.0985L7.98836 16.5796C7.98836 17.1825 8.44053 17.6347 8.96807 17.5594L9.11879 17.5594C9.72169 17.5594 10.1739 17.1072 10.0985 16.5796L10.0985 10.0985L16.4289 10.0985C17.0318 10.0985 17.484 9.64635 17.484 9.04346C17.484 8.44056 17.0318 7.98839 16.4289 7.98839L10.0985 7.98839L10.0985 1.50727C10.0985 0.904371 9.64632 0.4522 9.11879 0.527562L8.96807 0.527561C8.36517 0.527561 7.913 0.979733 7.98836 1.50727Z' fill='#FFA800' />
                             </svg>
                         </button> : ''}
-                        <button className='btn next-btn passengers__next-btn' type='button' disabled={totalOrderSeats === totalAdultPassengers + totalChildPassengers ? false : true} onClick={() => navigate(config.paymentUrl)}>Далее</button>
+                        <button className='btn next-btn passengers__next-btn' type='button' disabled={totalSeatsItems.find(item => item.person_info.is_adult === true) === undefined ? true : totalOrderSeats === totalAdultPassengers + totalChildPassengers ? false : true} onClick={() => navigate(config.paymentUrl)}>Далее</button>
                     </div>
                 </div>
             </div>
