@@ -131,21 +131,21 @@ function PassengerForm({ item, index, route, setIsSuccessShown, isSuccessShown }
 
         if (!isFullnameValid(item.person_info.first_name)) {
             setFirstNameError(true);
-            setErrors(prevErrors => [...prevErrors, 'Введите имя.']);
+            setErrors(prevErrors => [...prevErrors, 'Убедитесь, что имя введено и содержит только буквы.']);
             setIsErrorShown(true);
             setIsFormValid(false);
         }
 
         if (!isFullnameValid(item.person_info.last_name)) {
             setLastNameError(true);
-            setErrors(prevErrors => [...prevErrors, 'Введите фамилию.']);
+            setErrors(prevErrors => [...prevErrors, 'Убедитесь, что фамилия введена и содержит только буквы.']);
             setIsErrorShown(true);
             setIsFormValid(false);
         }
 
         if (!isFullnameValid(item.person_info.patronymic)) {
             setPatronymicError(true);
-            setErrors(prevErrors => [...prevErrors, 'Введите отчество.']);
+            setErrors(prevErrors => [...prevErrors, 'Убедитесь, что отчество введено и содержит только буквы.']);
             setIsErrorShown(true);
             setIsFormValid(false);
         }
@@ -224,7 +224,9 @@ function PassengerForm({ item, index, route, setIsSuccessShown, isSuccessShown }
     }, [isErrorShown]);
 
     const isFullnameValid = (value) => {
-        if (value.length === 0) {
+        const regex = /^[a-zA-Z]+$/;
+
+        if (value.length === 0 || !regex.test(value)) {
             return false;
         }
 

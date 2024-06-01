@@ -71,21 +71,21 @@ function PaymentForm() {
 
         if (!isFullnameValid(user.first_name)) {
             setFirstNameError(true);
-            setErrors(prevErrors => [...prevErrors, 'Введите имя.']);
+            setErrors(prevErrors => [...prevErrors, 'Убедитесь, что имя введено и содержит только буквы.']);
             setIsErrorShown(true);
             setIsFormValid(false);
         }
 
         if (!isFullnameValid(user.last_name)) {
             setLastNameError(true);
-            setErrors(prevErrors => [...prevErrors, 'Введите фамилию.']);
+            setErrors(prevErrors => [...prevErrors, 'Убедитесь, что фамилия введена и содержит только буквы.']);
             setIsErrorShown(true);
             setIsFormValid(false);
         }
 
         if (!isFullnameValid(user.patronymic)) {
             setPatronymicError(true);
-            setErrors(prevErrors => [...prevErrors, 'Введите отчество.']);
+            setErrors(prevErrors => [...prevErrors, 'Убедитесь, что отчество введено и содержит только буквы.']);
             setIsErrorShown(true);
             setIsFormValid(false);
         }
@@ -113,7 +113,9 @@ function PaymentForm() {
     }
 
     const isFullnameValid = (value) => {
-        if (value.length === 0) {
+        const regex = /^[a-zA-Z]+$/;
+
+        if (value.length === 0 || !regex.test(value)) {
             return false;
         }
 
