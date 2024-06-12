@@ -9,6 +9,7 @@ import { getLastTickets } from '../../redux/reducers/filterTicketsReducer/getLas
 import { getTickets } from '../../redux/reducers/filterTicketsReducer/getTickets';
 import { getClearParams } from '../../helpers/getClearParams';
 import { resetFilterTickets, resetSearchTickets, selectWhereFromCity, selectWhereToCity } from '../../redux/actions/actionCreators';
+import { scrollTo } from '../../helpers/scrollTo';
 
 function TicketsPage() {
     const [isErrorShown, setIsErrorShown] = useState(false);
@@ -62,10 +63,7 @@ function TicketsPage() {
         if (!isFormValid) {
             checkIds();
         } else {
-            items.length !== 0 && window.scrollTo({
-                top: section.current?.offsetTop,
-                behavior: 'smooth',
-            });
+            scrollTo(section.current?.offsetTop, 'smooth');
 
             const params = getClearParams(form);
             const newSearchParams = new URLSearchParams(params);
@@ -77,6 +75,8 @@ function TicketsPage() {
         if (!isFormValid) {
             checkIds();
         } else {
+            scrollTo(section.current?.offsetTop, 'smooth');
+
             const params = getClearParams(form);
             const newSearchParams = new URLSearchParams(params);
             dispatch(getTickets(newSearchParams));

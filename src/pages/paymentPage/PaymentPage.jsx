@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import './Payment.css';
 import PaymentForm from '../../components/payment/PaymentForm';
 import Aside from '../../components/Aside';
+import { scrollTo } from '../../helpers/scrollTo';
 
 function PaymentPage() {
     const navigate = useNavigate();
@@ -15,11 +16,7 @@ function PaymentPage() {
         if (departureSeats.length === 0 && arrivalSeats.length === 0) {
             navigate('/');
         }
-
-        (departureSeats.length !== 0 || arrivalSeats.length !== 0) && window.scrollTo({
-            top: section.current?.offsetTop,
-            behavior: 'smooth',
-        })
+        (departureSeats.length !== 0 || arrivalSeats.length !== 0) && scrollTo(section.current?.offsetTop, 'smooth');
     }, []);
 
     return (

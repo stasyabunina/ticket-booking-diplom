@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import './OrderSuccess.css';
 import { useNavigate } from 'react-router-dom';
 import OrderSuccessDetails from '../../components/orderSuccess/OrderSuccessDetails';
+import { scrollTo } from '../../helpers/scrollTo';
 
 function OrderSuccessPage() {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ function OrderSuccessPage() {
 
     useEffect(() => {
         !success && navigate('/');
+        scrollTo();
         setOrderId(nanoid());
     }, []);
 

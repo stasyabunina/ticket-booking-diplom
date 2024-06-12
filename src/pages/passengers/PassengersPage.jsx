@@ -7,6 +7,7 @@ import { availableSeatsTotal, randomSeat, randomSeatPrice, totalAdultPassengersA
 import config from '../../app/config';
 import { addSeat } from '../../redux/actions/actionCreators';
 import Passenger from '../../components/passengers/Passenger';
+import { scrollTo } from '../../helpers/scrollTo';
 
 function PassengersPage() {
     const dispatch = useDispatch();
@@ -27,10 +28,7 @@ function PassengersPage() {
         if ((departureSeats.length === 0 && arrivalSeats.length === 0) || item === '') {
             navigate('/');
         } else {
-            window.scrollTo({
-                top: section.current?.offsetTop,
-                behavior: 'smooth',
-            })
+            scrollTo(section.current?.offsetTop, 'smooth');
         }
     }, []);
 

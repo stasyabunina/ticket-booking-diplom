@@ -113,7 +113,7 @@ function PaymentForm() {
     }
 
     const isFullnameValid = (value) => {
-        const regex = /^[a-zA-Z]+$/;
+        const regex = /^[а-яА-Я]+$/;
 
         if (value.length === 0 || !regex.test(value)) {
             return false;

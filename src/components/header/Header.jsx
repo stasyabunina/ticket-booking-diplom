@@ -8,12 +8,24 @@ function Header() {
 
     const scrollToEl = (e) => {
         e.preventDefault();
-        !isHomePage && navigate('/');
-        const hashLink = e.target.getAttribute('href').slice(1);
-        isHomePage && window.scrollTo({
-            top: document.querySelector(hashLink).offsetTop,
-            behavior: 'smooth',
-        });
+
+        if (!isHomePage) {
+            const hashLink = e.target.getAttribute('href').replace(pathname, "");
+
+            navigate('/');
+            setTimeout(() => {
+                window.scrollTo({
+                    top: document.querySelector(hashLink).offsetTop,
+                    behavior: 'smooth',
+                });
+            }, 300)
+        } else {
+            const hashLink = e.target.getAttribute('href').slice(1);
+            window.scrollTo({
+                top: document.querySelector(hashLink).offsetTop,
+                behavior: 'smooth',
+            });
+        }
     }
 
     return (

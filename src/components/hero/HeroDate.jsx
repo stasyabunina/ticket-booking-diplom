@@ -1,7 +1,6 @@
 import Calendar from 'react-calendar';
 import moment from 'moment';
 import { useState, useRef, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import 'react-calendar/dist/Calendar.css';
 import { updateDateValue } from '../../redux/actions/actionCreators';
@@ -12,9 +11,6 @@ function HeroDate({ route, date }) {
     const [isCalendarShown, setIsCalendarShown] = useState(false);
 
     const calendar = useRef(null);
-
-    const { pathname } = useLocation();
-    const isHomePage = pathname === '/';
 
     const initialValue = new Date();
     const [value, onChange] = useState(initialValue);
@@ -37,7 +33,7 @@ function HeroDate({ route, date }) {
 
     return (
         <div className='hero__date-wrapper'>
-            <span className={`hero__input hero__input_date hero__input_date_from${date !== '' ? ' hero__input_date--selected' : ''}`} onClick={() => isHomePage ? setIsCalendarShown(!isCalendarShown) : ''}>{isHomePage ? (date === '' ? 'ДД/ММ/ГГ' : date) : ''}</span>
+            <span className={`hero__input hero__input_date hero__input_date_from${date !== '' ? ' hero__input_date--selected' : ''}`} onClick={() => setIsCalendarShown(!isCalendarShown)}>{date === '' ? 'ДД/ММ/ГГ' : date}</span>
             {isCalendarShown ?
                 <CalendarWrapperComponent ref={calendar}>
                     <Calendar onChange={onChange} value={value} onClickDay={() => setIsCalendarShown(false)} minDate={new Date()} />

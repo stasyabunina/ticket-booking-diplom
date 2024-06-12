@@ -60,7 +60,7 @@ function PassengerForm({ item, index, route, setIsSuccessShown, isSuccessShown }
 
         const name = e.target.name;
         const value = e.target.value;
-        const checked = e.target.checked ? true : false;
+        const checked = e.target.checked;
 
         if (name === 'first_name' && firstNameError) {
             setFirstNameError(false);
@@ -197,17 +197,9 @@ function PassengerForm({ item, index, route, setIsSuccessShown, isSuccessShown }
 
             const isChildNoSeatIncluded = () => {
                 if (route === 'departure') {
-                    if (departureChildNoSeatAmount < departureChildNoSeatsTotal) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return (departureChildNoSeatAmount < departureChildNoSeatsTotal);
                 } else {
-                    if (arrivalChildNoSeatAmount < arrivalChildNoSeatsTotal) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return (arrivalChildNoSeatAmount < arrivalChildNoSeatsTotal);
                 }
             }
 
@@ -224,7 +216,7 @@ function PassengerForm({ item, index, route, setIsSuccessShown, isSuccessShown }
     }, [isErrorShown]);
 
     const isFullnameValid = (value) => {
-        const regex = /^[a-zA-Z]+$/;
+        const regex = /^[а-яА-Я]+$/;
 
         if (value.length === 0 || !regex.test(value)) {
             return false;

@@ -25,6 +25,7 @@ export const searchCitiesFromEpic = action$ => action$.pipe(
     ofType(SEARCH_CITIES_FROM_REQUEST),
     map(o => o.payload.search),
     map(o => new URLSearchParams({ name: o })),
+    debounceTime(300),
     switchMap(o =>
         ajax.getJSON(import.meta.env.VITE_APP_URL + import.meta.env.VITE_SEARCH_CITIES_REQ + o).pipe(
             retry(3),
@@ -38,6 +39,7 @@ export const searchCitiesToEpic = action$ => action$.pipe(
     ofType(SEARCH_CITIES_TO_REQUEST),
     map(o => o.payload.search),
     map(o => new URLSearchParams({ name: o })),
+    debounceTime(300),
     switchMap(o =>
         ajax.getJSON(import.meta.env.VITE_APP_URL + import.meta.env.VITE_SEARCH_CITIES_REQ + o).pipe(
             retry(3),

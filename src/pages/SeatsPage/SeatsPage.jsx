@@ -7,6 +7,7 @@ import Aside from '../../components/Aside';
 import config from '../../app/config';
 import { totalAdultPassengersAmount } from '../../redux/selectors';
 import { resetPassengers, resetSeats } from '../../redux/actions/actionCreators';
+import { scrollTo } from '../../helpers/scrollTo';
 
 function SeatsPage() {
   const dispatch = useDispatch();
@@ -23,10 +24,7 @@ function SeatsPage() {
 
   useEffect(() => {
     (route_direction_id === '' || !isFormValid) && navigate('/');
-    window.scrollTo({
-      top: section.current?.offsetTop,
-      behavior: 'smooth',
-    });
+    scrollTo(section.current?.offsetTop, 'smooth');
   }, []);
 
   const onNextClick = () => {
