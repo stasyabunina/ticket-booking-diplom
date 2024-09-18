@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export const useDidMountEffect = () => {
-    const didMount = useRef(false);
+	const didMount = useRef(false);
 
-    useEffect(() => {
-        didMount.current = true;
-    }, []);
+	useEffect(() => {
+		didMount.current = true;
+	}, []);
 
-    return didMount.current;
-}
+	return didMount.current;
+};

@@ -1,51 +1,62 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
-import HeroRoutes from './HeroRoutes';
-import HeroDates from './HeroDates';
-import config from '../../app/config';
-import { getTickets } from '../../redux/reducers/filterTicketsReducer/getTickets';
-import { getClearParams } from '../../helpers/getClearParams';
-import { resetOrder, resetPassengers, resetSeats } from '../../redux/actions/actionCreators';
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import HeroRoutes from "./HeroRoutes";
+import HeroDates from "./HeroDates";
+import config from "../../app/config";
+import { getTickets } from "../../redux/reducers/filterTicketsReducer/getTickets";
+import { getClearParams } from "../../helpers/getClearParams";
+import {
+	resetOrder,
+	resetPassengers,
+	resetSeats,
+} from "../../redux/actions/actionCreators";
 
 function HeroForm({ heroFormClass }) {
-    const { from_city_id, to_city_id } = useSelector((state) => state.searchTickets.form);
-    const { form } = useSelector((state) => state.searchTickets);
+	const { from_city_id, to_city_id } = useSelector(
+		(state) => state.searchTickets.form
+	);
+	const { form } = useSelector((state) => state.searchTickets);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const { pathname } = useLocation();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { pathname } = useLocation();
 
-    const isTicketsPage = pathname === config.ticketsUrl;
+	const isTicketsPage = pathname === config.ticketsUrl;
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+	const onSubmit = (e) => {
+		e.preventDefault();
 
-        if (from_city_id === '' || to_city_id === '') {
-            return;
-        }
+		if (from_city_id === "" || to_city_id === "") {
+			return;
+		}
 
-        const params = getClearParams(form);
-        const newSearchParams = new URLSearchParams(params);
+		const params = getClearParams(form);
+		const newSearchParams = new URLSearchParams(params);
 
-        isTicketsPage && dispatch(getTickets(newSearchParams));
+		isTicketsPage && dispatch(getTickets(newSearchParams));
 
-        if (!isTicketsPage) {
-            navigate(config.ticketsUrl)
-            dispatch(resetSeats());
-            dispatch(resetPassengers());
-            dispatch(resetOrder());
-        }
-    }
+		if (!isTicketsPage) {
+			navigate(config.ticketsUrl);
+			dispatch(resetSeats());
+			dispatch(resetPassengers());
+			dispatch(resetOrder());
+		}
+	};
 
-    return (
-        <form className={heroFormClass} onSubmit={onSubmit}>
-            <div className='hero__form-wrapper'>
-                <HeroRoutes />
-                <HeroDates />
-            </div>
-            <button className='btn hero__submit-btn' disabled={from_city_id === '' || to_city_id === '' ? true : false}>найти билеты</button>
-        </form>
-    )
+	return (
+		<form className={heroFormClass} onSubmit={onSubmit}>
+			<div className="hero__form-wrapper">
+				<HeroRoutes />
+				<HeroDates />
+			</div>
+			<button
+				className="btn hero__submit-btn"
+				disabled={from_city_id === "" || to_city_id === "" ? true : false}
+			>
+				найти билеты
+			</button>
+		</form>
+	);
 }
 
 export default HeroForm;

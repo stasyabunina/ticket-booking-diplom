@@ -1,22 +1,43 @@
-import { useState } from 'react';
-import ServiceWifi from '../../img/svg/service-wifi.svg?react';
-import ServiceConditioning from '../../img/svg/service-conditioning.svg?react';
-import ServiceLinens from '../../img/svg/service-linen.svg?react';
-import ServiceExpress from '../../img/svg/service-express.svg?react';
+import { useState } from "react";
+import ServiceWifi from "../../img/svg/service-wifi.svg?react";
+import ServiceConditioning from "../../img/svg/service-conditioning.svg?react";
+import ServiceLinens from "../../img/svg/service-linen.svg?react";
+import ServiceExpress from "../../img/svg/service-express.svg?react";
 
 function ServiceItem({ item, service, onClick }) {
-    const [isTooltipShown, setIsTooltipShown] = useState(false);
+	const [isTooltipShown, setIsTooltipShown] = useState(false);
 
-    return (
-        <li className='seats__coach-service-item'>
-            <button className={`seats__coach-service-btn${service[item.type] ? ' seats__coach-service-btn--active' : ''}`} disabled={item.included && item.type === 'linens' ? true : false} type='button' onClick={() => onClick(item.type, service[item.type])} onMouseEnter={() => setIsTooltipShown(true)} onMouseLeave={() => setIsTooltipShown(false)}>
-                {item.type === 'wifi' ? <ServiceWifi /> : item.type === 'express' ? <ServiceExpress /> : item.type === 'conditioning' ? <ServiceConditioning /> : <ServiceLinens />}
-            </button>
-            {isTooltipShown ? <div className='seats__coach-service-tooltip'>
-                <span className='seats__coach-service-tooltip-text'>{item.tooltip}</span>
-            </div> : ''}
-        </li>
-    )
+	return (
+		<li className="seats__coach-service-item">
+			<button
+				className={`seats__coach-service-btn${service[item.type] ? " seats__coach-service-btn--active" : ""}`}
+				disabled={item.included && item.type === "linens" ? true : false}
+				type="button"
+				onClick={() => onClick(item.type, service[item.type])}
+				onMouseEnter={() => setIsTooltipShown(true)}
+				onMouseLeave={() => setIsTooltipShown(false)}
+			>
+				{item.type === "wifi" ? (
+					<ServiceWifi />
+				) : item.type === "express" ? (
+					<ServiceExpress />
+				) : item.type === "conditioning" ? (
+					<ServiceConditioning />
+				) : (
+					<ServiceLinens />
+				)}
+			</button>
+			{isTooltipShown ? (
+				<div className="seats__coach-service-tooltip">
+					<span className="seats__coach-service-tooltip-text">
+						{item.tooltip}
+					</span>
+				</div>
+			) : (
+				""
+			)}
+		</li>
+	);
 }
 
 export default ServiceItem;
